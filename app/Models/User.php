@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -21,6 +23,18 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'avatar',
+        'address',
+        'city',
+        'state',
+        'postal_code',
+        'country',
+        'timezone',
+        'locale',
+        'business_id',
+        'phone',
+        'active',
     ];
 
     /**
@@ -44,5 +58,37 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Relationship with business
+    public function business(): BelongsTo
+    {
+        return $this->belongsTo(Business::class);
+    }
+
+    // Relationship with agent
+    public function agent(): HasOne
+    {
+        return $this->hasOne(Agent::class);
+    }
+
+    // Role-based authorization helper methods
+    public function isAdmin(): string
+    {
+        return $this->role === 'admin';
+    }
+    public function isAgent(): string
+    {
+        return $this->role === 'agent';
+    }
+
+    public function isBusinessAdmin()
+    {
+        return $this->role === 'business_admin';
+    }
+
+    public function isReceptionist()
+    {
+        return $this->role === 'receptionist';
     }
 }

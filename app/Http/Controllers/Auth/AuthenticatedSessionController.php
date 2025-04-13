@@ -33,7 +33,19 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $user = Auth::user();
+        if ($user->role === 'business_admin') {
+            return redirect()->route('dashboard');
+        } elseif ($user->role === 'receptionist') {
+            return redirect()->route('receptionist.dashboard');
+        } elseif ($user->role === 'agent') {
+            return redirect()->route('agent.dashboard');
+        } else {
+            return redirect()->route('home')->with([
+                'message' => 'Welcome to your dashboard',
+                'type' => 'success',
+            ]);
+        }
     }
 
     /**

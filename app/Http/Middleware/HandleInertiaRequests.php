@@ -38,6 +38,10 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
+        $businessName = session('business.name', '');
+        $displayName = strlen($businessName) <= 20
+            ? $businessName
+            : substr($businessName, 0, 20) . '...';
 
         return [
             ...parent::share($request),
@@ -46,10 +50,18 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'ziggy' => fn (): array => [
+            'ziggy' => fn(): array => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
-            ]
+            ],
+            'business' => [
+                'name' => $displayName,
+                // You can include other business details here
+                'id' => session('business.id'),
+                'email' => session('business.email'),
+                'phone' => session('business.phone'),
+                'address' => session('business.address'),
+            ],
         ];
     }
 }

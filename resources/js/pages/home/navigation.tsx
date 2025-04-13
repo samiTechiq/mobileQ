@@ -1,11 +1,12 @@
 import { Button } from '@/components/ui/button';
+import { Link } from '@inertiajs/react';
 import { Users } from 'lucide-react';
 
 const Navigation = () => {
     return (
         <>
             {/* Navigation */}
-            <nav className="container mx-auto flex items-center justify-between px-4 py-6">
+            <nav className="container mx-auto flex items-center justify-between border-b px-4 py-6">
                 <div className="flex items-center space-x-2">
                     <Users className="h-8 w-8 text-indigo-600" />
                     <span className="text-2xl font-bold text-gray-900">mobileQ</span>
@@ -25,10 +26,14 @@ const Navigation = () => {
                     </a>
                 </div>
                 <div className="flex items-center space-x-3">
-                    <Button variant="outline" className="hidden md:inline-flex">
-                        Log in
-                    </Button>
-                    <Button>Get Started</Button>
+                    <Link href="/login">
+                        <Button variant="outline" className="hidden md:inline-flex">
+                            Log in
+                        </Button>
+                    </Link>
+                    <Link href="/register" className="btn btn-primary">
+                        Get Started
+                    </Link>
                 </div>
             </nav>
         </>

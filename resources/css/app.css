@@ -157,3 +157,36 @@
         @apply bg-background text-foreground;
     }
 }
+
+@layer components {
+    .btn {
+        @apply inline-flex items-center justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium transition-colors;
+    }
+
+    .btn-primary {
+        @apply bg-indigo-600 text-white transition-colors hover:bg-indigo-700;
+    }
+
+    .btn-secondary {
+        @apply bg-secondary text-secondary-foreground hover:bg-secondary/90;
+    }
+
+    .btn-destructive {
+        @apply bg-destructive hover:bg-destructive/90 text-white;
+    }
+}
+.btn-accent {
+    @apply bg-accent text-accent-foreground hover:bg-accent/90;
+}
+
+.btn-link {
+    @apply text-primary underline-offset-4 transition-colors;
+}
+
+.btn-link:hover {
+    @apply text-primary/80;
+}
+
+.btn-link:disabled {
+    @apply text-primary/50 pointer-events-none;
+}
